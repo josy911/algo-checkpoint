@@ -1,0 +1,88 @@
+
+// creates a function to take size an array from the user, then collect the elements of the array and return the array.
+FUNCTION array_elements (n): ARRAY_OF INTEGER[n]           // function name
+VAR
+    //declare local variables for the function
+    i : INTEGER :=0                                                                         
+    elements : ARRAY_OF INTEGER[n];                               
+BEGIN
+    //receive array elements from user using for loop
+    FOR i FROM 0 TO n-1 STEP 1  DO
+        Read(elements[i])                                          
+        i = i + 1;
+    END_FOR
+    RETURN elements;                                 // return variable to calling program        
+END
+
+
+// a function to check if the elements of one array exist in a second array
+
+
+FUNCTION check_distinct(y, z, array_1, array_2) : INTEGER           // function name, parameter and return type
+VAR
+    // declare local variables to ne used in the function.
+    y, z, sum, i, j := INTEGER
+    array_1 : ARRAY_OF INTEGER [y];
+    array_2 : ARRAY_OF INTEGER [z];
+BEGIN
+    // nested loop to compare each element in array 1 to array 2
+    FOR i FROM 0 TO y-1 STEP 1  DO                                         
+        FOR j FROM 0 TO z-1 STEP 1  DO                                     
+            IF (array_1[i] == array_2[j]) THEN            //if same item found in both arrays, break out of loop                  
+                BREAK; 
+            END_IF
+        END_FOR
+        IF (array_1[i] <> array_2[j]) THEN                 // if items not similar, add element to sum of distinct items from array 1
+            sum := sum + array_1[i]
+        END_IF
+    END_FOR
+    RETURN sum ;                                            // return sum to calling function
+END
+
+
+// algorith for sum of distinct number in 2 arrays
+
+ALGORITHM sum_of_distinct
+
+// declare global variables
+VAR
+set_a : ARRAY_OF INTEGER[20];
+set_b : ARRAY_OF INTEGER[20];
+distinct, distinct1, distinct2, n, a, b = INTEGER :=0
+
+BEGIN
+    // prompt user to enter size of array between 1 and 20
+    // if number enter is not between and 20, then continue to prompt user again
+    REPEAT
+        write ("Enter size of first array between 1 and 20: ")
+        Read (a)
+    UNTIL (a > 0 AND a <= 20)
+
+    // call the function to get elements of the first array and set it to a variable
+    set_a := array_elements (a)                                           
+
+     // prompt user to enter size of array between 1 and 20
+    // if number enter is not between and 20, then continue to prompt user again
+    
+    REPEAT
+        write ("Enter size of second array:")
+        Read (b)
+    UNTIL (b > 0 AND b <= 20)
+    
+    // call the function to get elements of the first array and set it to a variable
+    set_b := array_elements (b)
+
+    // call the function to check for 
+    distinct1 := check_distinct(a, b, set_a, set_b)
+    distinct2 := check_distinct(b, a, set_b, set_a)
+    distinct := distinct1 + distinct2
+write (distinct)
+
+
+
+
+
+
+
+
+
